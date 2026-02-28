@@ -1,112 +1,591 @@
-// Professional Script
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Mobile Menu Toggle
-    const mobileToggle = document.querySelector('.mobile-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Miner — Mining the Best Amazon Deals</title>
+<meta name="description" content="The Miner digs through thousands of Amazon products 24/7 to surface the best deals, deepest discounts, and hidden gems — so you never overpay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    // Smooth Scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+<!-- HEADER -->
+<header>
+  <a href="index.html" class="logo">
+    <svg class="logo-icon" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="6" fill="#1A1714"/>
+      <path d="M10 38L24 10L38 38" stroke="#F5A623" stroke-width="3.5" stroke-linejoin="round" fill="none"/>
+      <line x1="14" y1="30" x2="34" y2="30" stroke="#F5A623" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="24" cy="10" r="3.5" fill="#F5A623"/>
+      <rect x="20" y="34" width="8" height="8" rx="1" fill="#F5A623" opacity="0.4"/>
+    </svg>
+    <div class="logo-text">
+      <span class="the">The</span>
+      <span class="miner">MINER</span>
+      <span class="logo-tagline">Mining the Best Deals</span>
+    </div>
+  </a>
 
-    // Newsletter Form
-    const newsletterForm = document.querySelector('.newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            
-            // Show success message
-            const btn = this.querySelector('button');
-            const originalText = btn.textContent;
-            btn.textContent = '✓ Subscribed!';
-            btn.style.background = '#10B981';
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-                this.reset();
-            }, 3000);
-        });
-    }
+  <nav id="main-nav">
+    <a href="#">Today's Deals</a>
+    <a href="#">Electronics</a>
+    <a href="#">Home & Kitchen</a>
+    <a href="#">Fashion</a>
+    <a href="#">Prime Deals</a>
+    <a href="#" class="header-cta">⛏ All Deals</a>
+  </nav>
 
-    // Deal Card Animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#">Today's Deals</a>
+  <a href="#">Electronics</a>
+  <a href="#">Home & Kitchen</a>
+  <a href="#">Fashion</a>
+  <a href="#">Prime Deals</a>
+  <a href="#">All Deals</a>
+</div>
 
-    document.querySelectorAll('.deal-card, .category-card, .feature-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.6s ease-out';
-        observer.observe(card);
-    });
+<!-- TICKER -->
+<div class="ticker" aria-label="Live deal ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">⛏ Echo Dot 5th Gen — <strong>$89 → $39</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">💎 Kindle Paperwhite — <strong>$149 → $99</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">🪨 Fire TV Stick 4K — <strong>$69 → $29</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">⚡ Samsung Galaxy S24 — <strong>$799 → $549</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">🏆 AirPods Pro 2nd Gen — <strong>$249 → $169</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">🔥 Sony WH-1000XM5 — <strong>$349 → $229</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">⛏ Echo Dot 5th Gen — <strong>$89 → $39</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">💎 Kindle Paperwhite — <strong>$149 → $99</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">🪨 Fire TV Stick 4K — <strong>$69 → $29</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">⚡ Samsung Galaxy S24 — <strong>$799 → $549</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">🏆 AirPods Pro 2nd Gen — <strong>$249 → $169</strong></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item">🔥 Sony WH-1000XM5 — <strong>$349 → $229</strong></span>
+    <span class="ticker-sep">◆</span>
+  </div>
+</div>
 
-    // Deal Buttons
-    document.querySelectorAll('.deal-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Add your Amazon affiliate link redirect here
-            console.log('Redirecting to Amazon deal...');
-            // window.location.href = 'your-amazon-affiliate-link';
-        });
-    });
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="pulse-dot"></div>
+      Live Mining Active
+    </div>
+    <h1>WE DIG SO <span>YOU SAVE</span></h1>
+    <p>Our digital miners track thousands of Amazon products around the clock — surfacing the deepest discounts before anyone else finds them.</p>
+    <div class="hero-actions">
+      <a href="#deals" class="btn-primary">⛏ Explore Deals</a>
+      <a href="#how" class="btn-secondary">How It Works →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="num">12,400+</div>
+        <div class="label">Deals Today</div>
+      </div>
+      <div class="stat">
+        <div class="num">$2.8M</div>
+        <div class="label">Saved This Week</div>
+      </div>
+      <div class="stat">
+        <div class="num">520K</div>
+        <div class="label">Miners Joined</div>
+      </div>
+    </div>
+  </div>
 
-    // Header Scroll Effect
-    let lastScroll = 0;
-    const header = document.querySelector('.header');
-    
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-        } else {
-            header.style.boxShadow = 'none';
-        }
-        
-        lastScroll = currentScroll;
-    });
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-card">
+      <div class="deal-meta">
+        <span class="deal-category">⚡ Lightning Deal</span>
+        <span class="deal-badge lightning">-56%</span>
+      </div>
+      <div class="deal-name">Echo Dot (5th Gen) with Alexa</div>
+      <div class="deal-prices">
+        <span class="price-now">$39</span>
+        <span class="price-was">$89</span>
+        <span class="price-disc">Save $50</span>
+      </div>
+      <div class="card-bar"><div class="bar-fill" style="width:92%"></div></div>
+      <div class="card-bar-label">92% Deal Quality Score</div>
+    </div>
+    <div class="hero-card">
+      <div class="deal-meta">
+        <span class="deal-category">📱 Smartphones</span>
+        <span class="deal-badge">-31%</span>
+      </div>
+      <div class="deal-name">Samsung Galaxy S24 128GB Onyx Black</div>
+      <div class="deal-prices">
+        <span class="price-now">$549</span>
+        <span class="price-was">$799</span>
+        <span class="price-disc">Save $250</span>
+      </div>
+      <div class="card-bar"><div class="bar-fill" style="width:78%"></div></div>
+      <div class="card-bar-label">78% Deal Quality Score</div>
+    </div>
+    <div class="hero-card">
+      <div class="deal-meta">
+        <span class="deal-category">🎵 Audio</span>
+        <span class="deal-badge lightning">-32%</span>
+      </div>
+      <div class="deal-name">AirPods Pro 2nd Generation MagSafe</div>
+      <div class="deal-prices">
+        <span class="price-now">$169</span>
+        <span class="price-was">$249</span>
+        <span class="price-disc">Save $80</span>
+      </div>
+      <div class="card-bar"><div class="bar-fill" style="width:85%"></div></div>
+      <div class="card-bar-label">85% Deal Quality Score</div>
+    </div>
+  </div>
+</section>
 
-    // Load More Deals
-    const loadMoreBtn = document.querySelector('.btn-outline');
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            this.textContent = 'Loading...';
-            
-            // Simulate loading more deals
-            setTimeout(() => {
-                this.textContent = 'Load More Deals';
-                // Here you would load more deals from your backend
-            }, 1000);
-        });
-    }
-});
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- CATEGORIES -->
+  <section class="categories" aria-label="Browse categories">
+    <a href="#" class="cat-item">
+      <span class="cat-icon">📱</span>
+      <div class="cat-name">Electronics</div>
+      <div class="cat-count">2,340 deals</div>
+    </a>
+    <a href="#" class="cat-item">
+      <span class="cat-icon">🏠</span>
+      <div class="cat-name">Home & Kitchen</div>
+      <div class="cat-count">1,820 deals</div>
+    </a>
+    <a href="#" class="cat-item">
+      <span class="cat-icon">👗</span>
+      <div class="cat-name">Fashion</div>
+      <div class="cat-count">3,100 deals</div>
+    </a>
+    <a href="#" class="cat-item">
+      <span class="cat-icon">🎮</span>
+      <div class="cat-name">Gaming</div>
+      <div class="cat-count">980 deals</div>
+    </a>
+    <a href="#" class="cat-item">
+      <span class="cat-icon">💄</span>
+      <div class="cat-name">Beauty</div>
+      <div class="cat-count">1,460 deals</div>
+    </a>
+    <a href="#" class="cat-item">
+      <span class="cat-icon">📚</span>
+      <div class="cat-name">Books</div>
+      <div class="cat-count">740 deals</div>
+    </a>
+  </section>
+
+  <!-- PROMO BANNER -->
+  <div class="promo-banner">
+    <div class="promo-content">
+      <div class="promo-tag">⛏ DEEP MINE EVENT</div>
+      <h2>PRIME DAY EXCLUSIVES</h2>
+      <p>Deals so deep we had to dig twice. Prime members only.</p>
+    </div>
+    <div class="promo-timer">
+      <div class="timer-block">
+        <span class="timer-num" id="hours">08</span>
+        <span class="timer-label">Hours</span>
+      </div>
+      <span class="timer-sep">:</span>
+      <div class="timer-block">
+        <span class="timer-num" id="minutes">43</span>
+        <span class="timer-label">Min</span>
+      </div>
+      <span class="timer-sep">:</span>
+      <div class="timer-block">
+        <span class="timer-num" id="seconds">21</span>
+        <span class="timer-label">Sec</span>
+      </div>
+      <a href="#" class="btn-primary" style="margin-left: 24px;">Shop Now →</a>
+    </div>
+  </div>
+
+  <!-- FILTER TAGS -->
+  <div class="tags-cloud">
+    <a href="#" class="tag active">All Deals</a>
+    <a href="#" class="tag">⚡ Lightning</a>
+    <a href="#" class="tag">💎 Biggest Discount</a>
+    <a href="#" class="tag">🏆 Best Sellers</a>
+    <a href="#" class="tag">🆕 Just Mined</a>
+    <a href="#" class="tag">Prime</a>
+    <a href="#" class="tag">Free Shipping</a>
+    <a href="#" class="tag">Under $50</a>
+    <a href="#" class="tag">$50–$200</a>
+    <a href="#" class="tag">$200+</a>
+  </div>
+
+  <!-- CONTENT + SIDEBAR -->
+  <div class="content-with-sidebar" id="deals">
+    <div class="deals-section">
+      <div class="section-header">
+        <div>
+          <div class="section-label">⛏ Today's Mining Haul</div>
+          <h2 class="section-title">TOP FINDS</h2>
+        </div>
+        <a href="#" class="section-link">View All →</a>
+      </div>
+
+      <div class="deals-grid">
+
+        <a href="#" class="deal-card">
+          <div class="card-img">📺
+            <div class="card-badges">
+              <span class="badge badge-off">-47%</span>
+              <span class="badge badge-hot">HOT</span>
+            </div>
+          </div>
+          <div class="card-category">Smart TVs</div>
+          <div class="card-name">Samsung 50" QLED 4K Smart TV Q60C Series</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:92%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$449</span>
+            <span class="card-price-was">$849</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★★</span> 4.8 (2,340)</div>
+          <div class="card-savings">💎 Save $400</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">🎧
+            <div class="card-badges">
+              <span class="badge badge-off">-34%</span>
+              <span class="badge badge-prime">Prime</span>
+            </div>
+          </div>
+          <div class="card-category">Audio</div>
+          <div class="card-name">Sony WH-1000XM5 Wireless Noise Canceling Headphones</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:87%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$229</span>
+            <span class="card-price-was">$349</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★★</span> 4.9 (5,210)</div>
+          <div class="card-savings">💎 Save $120</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">💻
+            <div class="card-badges">
+              <span class="badge badge-off">-28%</span>
+            </div>
+          </div>
+          <div class="card-category">Laptops</div>
+          <div class="card-name">Apple MacBook Air 13" M3 8GB 256GB Midnight</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:78%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$899</span>
+            <span class="card-price-was">$1,249</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★★</span> 4.9 (1,870)</div>
+          <div class="card-savings">💎 Save $350</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">📷
+            <div class="card-badges">
+              <span class="badge badge-off">-22%</span>
+              <span class="badge badge-new">New</span>
+            </div>
+          </div>
+          <div class="card-category">Cameras</div>
+          <div class="card-name">Canon EOS R50 Mirrorless 24.2MP Kit 18-45mm</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:72%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$679</span>
+            <span class="card-price-was">$869</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★☆</span> 4.7 (934)</div>
+          <div class="card-savings">💎 Save $190</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">🖨️
+            <div class="card-badges">
+              <span class="badge badge-off">-60%</span>
+              <span class="badge badge-hot">MOTHERLODE</span>
+            </div>
+          </div>
+          <div class="card-category">Printers</div>
+          <div class="card-name">HP Smart Tank 583 All-in-One Wireless Color Printer</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:96%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$119</span>
+            <span class="card-price-was">$299</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★☆</span> 4.5 (3,120)</div>
+          <div class="card-savings">💎 Save $180</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">⌚
+            <div class="card-badges">
+              <span class="badge badge-off">-30%</span>
+              <span class="badge badge-prime">Prime</span>
+            </div>
+          </div>
+          <div class="card-category">Wearables</div>
+          <div class="card-name">Apple Watch Series 9 GPS 41mm Midnight Aluminum</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:82%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$279</span>
+            <span class="card-price-was">$399</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★★</span> 4.8 (4,560)</div>
+          <div class="card-savings">💎 Save $120</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">🎮
+            <div class="card-badges">
+              <span class="badge badge-off">-25%</span>
+            </div>
+          </div>
+          <div class="card-category">Gaming</div>
+          <div class="card-name">PlayStation 5 Slim 1TB Standard Edition White</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:70%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$374</span>
+            <span class="card-price-was">$499</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★★</span> 4.9 (12,300)</div>
+          <div class="card-savings">💎 Save $125</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+        <a href="#" class="deal-card">
+          <div class="card-img">🏠
+            <div class="card-badges">
+              <span class="badge badge-off">-40%</span>
+              <span class="badge badge-hot">HOT</span>
+            </div>
+          </div>
+          <div class="card-category">Smart Home</div>
+          <div class="card-name">Ring Video Doorbell HD Wi-Fi Security Camera</div>
+          <div class="ore-meter">
+            <span class="ore-label">Ore Grade</span>
+            <div class="ore-bar"><div class="ore-fill" style="width:88%"></div></div>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price-now">$59</span>
+            <span class="card-price-was">$99</span>
+          </div>
+          <div class="card-stars"><span class="stars">★★★★☆</span> 4.6 (7,800)</div>
+          <div class="card-savings">💎 Save $40</div>
+          <span class="card-btn">⛏ Mine This Deal</span>
+        </a>
+
+      </div>
+
+      <div style="text-align:center; margin-top: 32px;">
+        <a href="#" class="btn-primary">⛏ Load More Finds</a>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-widget">
+        <div class="widget-title"><span>🔥</span>Top Mines</div>
+        <div class="hot-deal-item">
+          <div class="hot-deal-num">01</div>
+          <div class="hot-deal-info">
+            <div class="name">Echo Dot 5th Gen</div>
+            <div class="price">$39 <span class="discount">-56%</span></div>
+          </div>
+        </div>
+        <div class="hot-deal-item">
+          <div class="hot-deal-num">02</div>
+          <div class="hot-deal-info">
+            <div class="name">Fire TV Stick 4K Max</div>
+            <div class="price">$29 <span class="discount">-42%</span></div>
+          </div>
+        </div>
+        <div class="hot-deal-item">
+          <div class="hot-deal-num">03</div>
+          <div class="hot-deal-info">
+            <div class="name">Kindle Paperwhite 16GB</div>
+            <div class="price">$99 <span class="discount">-34%</span></div>
+          </div>
+        </div>
+        <div class="hot-deal-item">
+          <div class="hot-deal-num">04</div>
+          <div class="hot-deal-info">
+            <div class="name">Logitech MX Keys Mini</div>
+            <div class="price">$69 <span class="discount">-30%</span></div>
+          </div>
+        </div>
+        <div class="hot-deal-item">
+          <div class="hot-deal-num">05</div>
+          <div class="hot-deal-info">
+            <div class="name">iRobot Roomba i3+</div>
+            <div class="price">$249 <span class="discount">-28%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="newsletter-widget">
+        <h3>⛏ Get the Haul</h3>
+        <p>Be the first to know when our miners strike gold. No spam — only deals worth surfacing.</p>
+        <input type="email" class="newsletter-input" placeholder="your@email.com" aria-label="Email address">
+        <button class="newsletter-btn">Join the Crew →</button>
+      </div>
+
+      <div class="sidebar-widget lightning-widget">
+        <div class="widget-title"><span>⚡</span>Lightning Deal</div>
+        <div class="lightning-expires">
+          <span class="exp-label">Expires in:</span>
+          <div class="exp-timer">
+            <div><span id="s-h">04</span><small>HR</small></div>
+            <span class="sep">:</span>
+            <div><span id="s-m">22</span><small>MIN</small></div>
+            <span class="sep">:</span>
+            <div><span id="s-s">39</span><small>SEC</small></div>
+          </div>
+        </div>
+        <div class="lightning-name">Kindle Paperwhite 16GB</div>
+        <div class="lightning-prices">
+          <span class="l-now">$99</span>
+          <span class="l-was">$149</span>
+        </div>
+        <a href="#" class="card-btn" style="display:block; text-align:center; margin-top:12px; text-decoration:none;">⚡ Grab It Now</a>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="section-header" style="margin-bottom:40px">
+      <div>
+        <div class="section-label">⛏ Our Method</div>
+        <h2 class="section-title">HOW WE MINE</h2>
+      </div>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <div class="how-icon">🔍</div>
+        <h3>Scan</h3>
+        <p>Our automated miners scan over 500,000 Amazon products every hour, tracking price histories and spotting drops in real time.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <div class="how-icon">⚖️</div>
+        <h3>Grade</h3>
+        <p>Each deal is graded on our Ore Quality Score — combining discount depth, price history, ratings, and category trends.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <div class="how-icon">💎</div>
+        <h3>Surface</h3>
+        <p>Only the purest gold makes the cut. We surface deals that are genuinely worth your money, not just slightly marked down.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">04</div>
+        <div class="how-icon">🚀</div>
+        <h3>Deliver</h3>
+        <p>Deals land on your screen — and in your inbox if you subscribe — before the gold rush starts and stock runs out.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">⛏ THE MINER</div>
+      <p class="footer-about">We're digital prospectors. Every day, we dig through Amazon's vast catalog to bring you the deepest discounts, hidden gems, and best value finds — so you never overpay for anything.</p>
+      <p class="footer-disclaimer">As an Amazon Associate, The Miner earns from qualifying purchases. This doesn't affect the price you pay.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="#">Electronics</a></li>
+        <li><a href="#">Smartphones</a></li>
+        <li><a href="#">Smart Home</a></li>
+        <li><a href="#">Gaming</a></li>
+        <li><a href="#">Fashion & Beauty</a></li>
+        <li><a href="#">Books</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Mine More</h4>
+      <ul>
+        <li><a href="#">Today's Deals</a></li>
+        <li><a href="#">Lightning Deals</a></li>
+        <li><a href="#">Prime Exclusive</a></li>
+        <li><a href="#">Lowest Price</a></li>
+        <li><a href="#">Price History</a></li>
+        <li><a href="#">Price Alerts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Who We Are</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Advertise</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 The Miner. All rights reserved.</div>
+    <div class="footer-fine">Prices and availability subject to change. Always verify final price on Amazon before purchasing.</div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
